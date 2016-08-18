@@ -1,0 +1,76 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2016-08-18 10:04:21
+ * @version $Id$
+ */
+#what-when .ww-1{
+	display: inline-block;
+	height:170px;
+	width:641px;
+}
+.wwh-what{
+	width:195px;
+	height:100%;
+	margin-right: 30px;
+	font-size: 12px;
+	font-family:宋体;
+	color:#767777;
+	line-height: 16px;
+}
+.wwh-when{
+	width:193px;
+	height:100%;
+	margin-right: 30px;
+	font-size:12px;
+	font-family:微软雅黑;
+	color: #231815;
+	line-height: 16px;
+	opacity: 0.7;
+}
+.wwh-how{
+	width:193px;
+	height:100%;
+	font-size:12px;
+	font-family:微软雅黑;
+}
+.wwh-what span{
+	font-size: 16px;
+	color:#418c59;
+	font-weight: 700;
+	font-family: 微软雅黑;
+	text-decoration: underline;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.wwh-when span{
+	font-size: 16px;
+	font-family: 微软雅黑;
+	font-weight:700;
+	text-decoration:underline;
+	color:#d2994f;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.wwh-how span{
+	font-size:16px;
+	font-family: 微软雅黑;
+	font-weight: 700;
+	text-decoration: underline;
+	color: #cc7680;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.wwh-how p{
+	opacity: 0.7;
+}
+.wwh-how p span{
+	font-size:12px;
+	color: #cd4a48;
+	font-family: 微软雅黑;
+	font-style: italic;
+	line-height:16px;
+	opacity: 0.7;
+	text-decoration:none;
+}
