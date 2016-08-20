@@ -1,0 +1,57 @@
+<!-- </html> -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>float</title>
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px;
+		}	
+
+		.header, .wrap, .footer{
+			background-color: silver;
+			border:1px solid teal;
+			/*margin-bottom:10px;*/
+			width: 1190px;
+			margin:0 auto 10px auto;
+		}
+		.header, .footer{
+			height:100px;
+		}
+		.wrap{
+			/*height: 300px;*/
+			overflow:hidden;
+		}
+		.nav, .main{
+			border:1px solid teal;
+			height: 300px;
+		}
+		.nav{
+			width: 200px;
+			float: left;
+			/*margin-left:200px;*/
+		}
+		.main{
+			float: left;
+			width: 986px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		header
+	</div>
+	<div class="wrap">
+		<div class="nav">
+			nav
+		</div>
+		<div class="main">
+			main
+		</div>
+	</div>
+	<div class="footer">
+		footer
+	</div>
+</body>
+</html>

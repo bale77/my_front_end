@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ife2016_task_17</title>
+	<style>
+		.aqi-chart-wrap{
+			/*width: 900px;*/
+			height: 500px;
+			position: relative;
+			overflow: hidden;
+		}
+		.aqi-chart-wrap span{
+			height: 500px;
+			width: 5px;
+			margin-left: 5px;
+			display: inline-block;
+			position: absolute;
+			background-color: #000;
+		}
+	</style>
+</head>
+<body>
+  <fieldset id="form-gra-time">
+    <legend>请选择日期粒度：</legend>
+    <label>日<input name="gra-time" value="day" type="radio" checked="checked"></label>
+    <label>周<input name="gra-time" value="week" type="radio"></label>
+    <label>月<input name="gra-time" value="month" type="radio"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>请选择查看的城市：</legend>
+    <select id="city-select">
+<!--       <option>北京</option>
+      <option>上海</option>
+      <option>广州</option>
+      <option>深圳</option>
+      <option>成都</option>
+      <option>西安</option>
+      <option>福州</option>
+      <option>厦门</option>
+      <option>沈阳</option> -->
+    </select>
+  </fieldset>
+
+	<div class="aqi-chart-wrap">
+		<!-- <span></span> -->
+	</div>
+
+  <script src="main.js"></script>
+</body>
+</html>
