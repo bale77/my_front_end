@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ife2016_task_20</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#mult-text{
+			resize: none;
+		}
+		#result{
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;  /*流式布局*/
+		}
+		#result div{
+			background-color: aqua;
+			height:30px;
+			line-height: 30px;
+			min-width: 15px;
+			text-align: center;
+			margin: 5px;
+			padding:0 10px;
+		}
+		#result div span{
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<div id="ctrl">
+		<textarea id="mult-text" cols="20" rows="7"></textarea>
+		<button id="insert">insert</button>
+		<button id="query">query</button>
+		<input type="text" id="queryText">
+	</div>
+	<div id="result"></div>
+	<script>
+		var oInput = document.querySelector('#mult-text');
+		var oBtnInsert = document.querySelector('#insert');
+		var oResult = document.querySelector('#result');
+		var oBtnQuery = document.querySelector('#query');
+		var oQueryText = document.querySelector('#queryText');
+		var arrData=[];
+		oBtnInsert.onclick=function(){
+			let str = oInput.value.trim();
+			/*将至少一个非数字，非大小写字母，非中文字符作为分隔符*/ 
+			/* 若输入的文本为空  不执行render */
+			if(Boolean(str)){
+				let strArr = str.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+				arrData=arrData.concat(strArr);
+				render();
+			}
+		}
+		oBtnQuery.onclick=function(){
+			let str=oQueryText.value.trim();
+			render(str);
+		}
+		function render(queryStr){
+
+			/*/ 若queryStr为undefine，表示直接插入*/
+			/* 若queryStr不为undefine，表示查询*/
+			/* 若点击查询时，查询内容为空string  Boolean(queryStr) is false */
+			if(!Boolean(queryStr)){
+				oResult.innerHTML = arrData.map(function(d){
+					return '<div>'+d+'</div>';
+				}).join('');
+			}
+			else if(queryStr!=null&&queryStr.length>0){
+				let regE = new RegExp(queryStr,'g');
+				oResult.innerHTML = arrData.map(function(d){
+					d = d.replace(regE,'<span>'+queryStr+'</span>');
+					return '<div>'+d+'</div>'
+				}).join('');
+			}
+		}
+		/*正则匹配中文字符*/
+		/*array的map函数*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Closure</title>
+</head>
+<body>
+    <pre>
+        var name = "The Window";
+    　　var object = {
+    　　　　name : "My Object",
+    　　　　getNameFunc : function(){
+    　　　　　　return function(){
+    　　　　　　　　console.log(this.name);
+    　　　　　　};
+    　　　　}
+    　　};
+    　　var x=object.getNameFunc();
+        console.log(window.x===x);  //true
+        x();                        //"The Window"
+/***********************************************/
+
+    　　var name1 = "The Window1";
+    　　var object1 = {
+    　　　　name1 : "My Object1",
+    　　　　getNameFunc1 : function(){
+    　　　　　　var self = this;
+    　　　　　　return function(){
+                    console.log(self);          //object1
+    　　　　　　　　console.log(self.name1);    //My Object1
+    　　　　　　};
+    　　　　}
+    　　};
+    　　var y=object1.getNameFunc1();
+        y();
+    </pre>
+	<script>
+    	var name = "The Window";
+    　　var object = {
+    　　　　name : "My Object",
+    　　　　getNameFunc : function(){
+    　　　　　　return function(){
+    　　　　　　　　console.log(this.name);
+    　　　　　　};
+    　　　　}
+    　　};
+    　　var x=object.getNameFunc();
+    	console.log(window.x===x);  //true
+    	x();						//"The Window"
+/***********************************************/
+    　　var name1 = "The Window1";
+    　　var object1 = {
+    　　　　name1 : "My Object1",
+    　　　　getNameFunc1 : function(){
+    　　　　　　var self = this;
+    　　　　　　return function(){
+    				console.log(self);			//object1
+    　　　　　　　　console.log(self.name1);	//My Object1
+    　　　　　　};
+    　　　　}
+    　　};
+    　　var y=object1.getNameFunc1();
+    	y();
+	</script>
+</body>
+</html>
