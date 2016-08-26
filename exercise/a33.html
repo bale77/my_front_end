@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setInterval</title>
+</head>
+<body>
+	<p id="pid"></p>
+	<button class="btn" onclick="stopt()">stopBTN</button>
+	<script>
+
+	var mytime =setInterval(gt,300);
+		function gt(){
+			var d = new Date();
+			var t = d.toLocaleTimeString();
+			document.getElementById("pid").innerHTML=t +"<br>"+ d;
+
+		}
+		function stopt(){
+			clearInterval(mytime);
+		}
+	</script>
+</body>
+</html>

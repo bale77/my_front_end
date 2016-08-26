@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pu bu liu</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.con{
+			position: relative;
+			border: 1px solid red;
+		}
+		.box{
+			padding: 5px;
+			float: left;
+		}
+		.box_img{
+			padding: 5px;
+			border: 1px solid #CCC;
+			box-shadow:0 0 5px #ccc;
+			border-radius: 5px;
+		}
+		.box_img img{
+			width: 200px;
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="con">
+		<div class="box">
+			<div class="box_img"><img src="img/1.jpg" alt="1"></div>
+		</div>
+		<div class="box">
+			<div class="box_img"><img src="img/2.jpg" alt="1"></div>
+		</div>
+		<div class="box">
+			<div class="box_img"><img src="img/3.jpg" alt="1"></div>
+		</div>
+		<div class="box">
+			<div class="box_img"><img src="img/4.jpg" alt="1"></div>
+		</div>
+		<div class="box">
+			<div class="box_img"><img src="img/5.jpg" alt="1"></div>
+		</div>
+	</div>
+	<script>
+		window.onload = function(){
+			imgLocation("con","box");
+		}
+		function imgLocation(parent,content){
+			var cparent = document.getElementById(parent);
+			var ccontent = getChildElement(cparent,content);
+			console.log(ccontent);
+
+		}
+		function getChildElement(parent,content){
+			var contentArr=[];
+			var allcontent=parent.getElementsByTagName("*");
+			// var allcontent=parent.querySelector("*");
+			for(var i=0;i<allcontent.length;i++){
+				if(allcontent[i].className == content){
+					contentArr.push(allcontent[i]);
+				}
+			}
+			return contentArr;
+		}
+	</script>
+</body>
+</html>

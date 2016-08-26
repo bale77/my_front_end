@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ife2016_task_10</title>
+	<style>
+		*{
+			padding: 20px;
+			margin: 0px;
+			box-sizing: border-box;
+		}
+		html,body{
+			padding: 0px;
+		}
+		.container div{
+			width: 150px;
+			border: 1px solid #345;
+		}
+		.box1{
+			height:120px;
+		}
+		.box2{
+			height: 100px;
+		}
+		.box3{
+			height: 40px;
+		}
+		.box4{
+			height: 200px;
+		}
+		@media screen and (min-width: 640px){
+			.container{
+				display: flex;
+				/*flex-direction: row-reverse;*/
+				justify-content: space-between;
+				align-items: center;
+				flex:none;/*0 0 auto*/
+			}
+
+		}
+		@media screen and (max-width: 639px){
+			.container{
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				/*flex-flow: row wrap;*/
+			}
+			.box4{
+				order:-1;
+			}
+
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box1">1</div>
+		<div class="box2">2</div>
+		<div class="box3">3</div>
+		<div class="box4">4</div>
+	</div>
+</body>
+</html>
