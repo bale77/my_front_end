@@ -1,0 +1,65 @@
+<meta charset="UTF-8">
+<pre>
+	/*
+	定义多个属性
+	两个数据属性 _year,edition 
+	一个访问器属性 year 
+	设置一个属性的值会导致其他属性发生变化
+	 */
+	var book = {};
+
+	Object.defineProperties(book,{
+		_year:{
+			writable: true,
+			value: 2004
+		},
+		edition:{
+			writable: true,
+			value: 1
+		},
+		year: {
+			get: function(){
+				return this._year;
+			},
+			set: function(newValue){
+				if(newValue>2004){
+					this._year = newValue;
+					this.edition += newValue - 2004;
+				}
+			}
+		}
+	});
+
+	console.log(book);
+	book.year = 2006;
+	console.log(book);
+</pre>
+<script>
+	var book = {};
+
+	Object.defineProperties(book,{
+		_year:{
+			writable: true,
+			value: 2004
+		},
+		edition:{
+			writable: true,
+			value: 1
+		},
+		year: {
+			get: function(){
+				return this._year;
+			},
+			set: function(newValue){
+				if(newValue>2004){
+					this._year = newValue;
+					this.edition += newValue - 2004;
+				}
+			}
+		}
+	});
+
+	console.log(book);
+	book.year = 2006;
+	console.log(book);
+</script>
