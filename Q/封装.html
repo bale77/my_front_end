@@ -1,0 +1,46 @@
+<pre>
+	var a=(function(){
+		
+		function _tag(args){
+			console.log(args);
+			this.x=args;
+			this.getx=function(){
+				console.log(this.x);
+			}
+		}
+
+		_tag.prototype={
+			fn:function(y){
+				console.log(y);
+				console.log(this);
+			}
+		}
+		return _tag;
+	})();
+
+	var b = new a('b_args');
+	
+</pre>
+<script>
+	var a=(function(){
+		
+		function _tag(args){
+			console.log(args);
+			this.x=args;
+			this.getx=function(){
+				console.log(this.x);
+			}
+		}
+
+		_tag.prototype={
+			fn:function(y){
+				console.log(y);
+				console.log(this);
+			}
+		}
+		return _tag;
+	})();
+
+	var b = new a('b_args');
+	
+</script>
