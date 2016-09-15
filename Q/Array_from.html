@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Array.from()</title>
+</head>
+<body>
+	<div class='foo'><b>可以使用 Array.from() 将下面的两种对象转换成数组：</b></div>
+	<div class='foo'>  类数组对象（拥有一个 length 属性和若干索引属性的任意对象）<br>
+    可遍历对象（你可以从它身上迭代出若干个元素的对象，比如有 Map 和 Set 等）</div>
+	<pre>
+		const foo = document.querySelectorAll('.foo');
+		const nodes = Array.from(foo); 
+	</pre>
+	<script>
+		const foo = document.querySelectorAll('.foo');
+		const nodes = Array.from(foo); 
+		console.log('foo is:'+ foo);
+		console.log(foo[0]);
+		console.log(Array.isArray(foo));  //false
+
+		console.log('nodes is:'+ nodes);
+		console.log(nodes[0]);
+		console.log(Array.isArray(nodes));  //true
+
+	</script>
+</body>
+</html>
