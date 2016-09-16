@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery toggle</title>
+</head>
+
+<body>
+
+<button class="panel-button" id="btn1" data-panel="panel1">BTN1</button>
+<button class="panel-button" id="btn2" data-panel="panel2">BTN2</button>
+<button class="panel-button" id="btn3" data-panel="panel3">BTN3</button>
+<button class="panel-button" id="btn4" data-panel="panel4">BTN4</button>
+
+<p id="panel1">p1111111111111111111111111111111111</p>
+<p id="panel2">p2222222222222222222222222222222222</p>
+<p id="panel3">p3333333333333333333333333333333333</p>
+<p id="panel4">p4444444444444444444444444444444444</p>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('p').css({color:'red'});
+
+
+//对所有panel-button类添加点击事件
+$('.panel-button').on('click',function(){
+     var panelId = $(this).attr('data-panel');
+     $('#'+panelId).toggle();
+})
+
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<meta charset="utf-8">
+<pre>
+
+function A(){
+	this.sayHello3 = function(){
+		console.log("sayHello3");
+	}
+}
+
+A.sayHello1=function(){
+	console.log("sayHello1");
+}
+
+A.prototype.sayHello2=function(){
+	console.log("sayHello2");
+}
+
+var a=new A();
+
+A.sayHello1();  //sayHello1
+
+a.sayHello2();  //sayHello2
+
+//继承
+function B(){
+
+}
+
+B.prototype = new A();
+var b = new B();
+b.sayHello2();  //sayHello2
+b.sayHello3();  //sayHello3
+
+/*******************************/
+
+var person={
+	name:"iwen",
+	age:30,
+	eat:function(){
+		console.log("have food");
+	}
+}
+
+person.height=100;
+
+//使用函数构造器
+
+function Person(){
+
+}
+Person.prototype = {
+	name:"iwen",
+	age:30,
+	eat:function(){
+		console.log("have food");
+	}
+}
+var p = new Person();
+
+/****************/
+
+function People(){
+
+}
+People.prototype.say=function(){
+	console.log("hello");
+}
+function Student(){
+
+}
+
+Student.prototype = new People();
+var superSsay = Student.prototype.say;
+
+Student.prototype.say=function(){
+	//Student.prototype.say.call(this);  Maximum call stack size exceeded
+	superSsay.call(this);	  //hello  
+	console.log("stu-hello"); //stu-hello
+}
+
+var s = new Student();
+s.say();   
+
+
+</pre>
+
+<script>
+
+function A(){
+	this.sayHello3 = function(){
+		console.log("sayHello3");
+	}
+}
+
+A.sayHello1=function(){
+	console.log("sayHello1");
+}
+
+A.prototype.sayHello2=function(){
+	console.log("sayHello2");
+}
+
+var a=new A();
+
+A.sayHello1();  //sayHello1
+
+a.sayHello2();  //sayHello2
+
+//继承
+function B(){
+
+}
+
+B.prototype = new A();
+var b = new B();
+b.sayHello2();  //sayHello2
+b.sayHello3();  //sayHello3
+
+/*******************************/
+
+var person={
+	name:"iwen",
+	age:30,
+	eat:function(){
+		console.log("have food");
+	}
+}
+
+person.height=100;
+
+//使用函数构造器
+
+function Person(){
+
+}
+Person.prototype = {
+	name:"iwen",
+	age:30,
+	eat:function(){
+		console.log("have food");
+	}
+}
+var p = new Person();
+
+/****************/
+
+function People(){
+
+}
+People.prototype.say=function(){
+	console.log("hello");
+}
+function Student(){
+
+}
+
+Student.prototype = new People();
+var superSsay = Student.prototype.say;
+
+Student.prototype.say=function(){
+	//Student.prototype.say.call(this);  Maximum call stack size exceeded
+	superSsay.call(this);	  //hello  
+	console.log("stu-hello"); //stu-hello
+}
+
+var s = new Student();
+s.say();   
+
+
+</script>
