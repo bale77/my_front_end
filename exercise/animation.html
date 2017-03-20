@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Animating styles with CSS animations</title>
+        <style>
+            @keyframes getbigger {
+                from {
+                    width: 50px;
+                }
+                
+                to {
+                    width: 300px;
+                }
+            }
+            
+            @-webkit-keyframes getbigger {
+                from {
+                    width: 50px;
+                }
+                
+                to {
+                    width: 300px;
+                }
+            }
+            
+            #ohnoes {
+                animation-name: getbigger;
+                animation-duration: 3s;
+                /* vendor prefixes */
+                -webkit-animation-name: getbigger;
+                -webkit-animation-duration: 3s;
+            }
+            
+            #countdown:hover {
+                font-size: 150px;
+                transition: font-size 1s linear;
+            }
+        </style>
+    </head>
+    <body>
+    <div>
+        <img id="ohnoes" src="https://www.kasandbox.org/programming-images/creatures/OhNoes.png">
+        <h1>Oh noes, the world will end in
+            <span id="countdown">30</span>
+            seconds!
+        </h1>
+        <div id="info"></div>
+    </div>
+    
+
+
+    </body>
+</html>
