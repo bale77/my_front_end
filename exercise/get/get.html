@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>通过get提交数据给服务器</h1>
+	<!-- action 设置 数据 提交给什么地方 现在写的是 xxx.php
+		提交到了xx.php页面
+		如果 想要提交数据 form表单中的 表单元素 必须有 name属性
+		userName=小李子&userSkill=吃东西
+		设置了name属性以后,使用get请求,会直接在url的后面 拼接参数
+		默认使用的就是 get方式 发送数据
+		method="get" 可以指定 发送的方式
+	 -->
+	<form action="./get.php" method="get">
+		<input type="text" name='userName' placeholder="亲 输入用户名">
+		<br>
+		<input type="text"  name='userSkill' placeholder="亲 输入技能">
+		<br>
+		<input type="submit">
+	</form>
+</body>
+</html>
