@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue6</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
+    <style type="text/css"></style>
+    <script type="text/javascript" src='https://unpkg.com/vue@2.2.6/dist/vue.js'></script>
+</head>
+
+<body>
+    <div id="root" class="container" >
+		<modal v-if="showModal" @close="showModal = false;">
+			We insert any text here.
+		</modal>
+		<button @click="showModal = true;">Show Modal</button>
+    </div>
+    <script type="text/javascript">
+    Vue.component('modal', {
+        template: `
+		<div class="modal is-active">
+			<div class="modal-background"></div>
+			<div class="modal-content">
+				<div class="box">
+					<slot></slot>
+				</div>
+			</div>
+			<button class="modal-close" @click="$emit('close')"></button>
+		</div>
+		`,
+		props:[]
+    });
+
+    var vm = new Vue({
+        el: '#root',
+        data:{
+        	showModal:false
+        }
+    });
+    </script>
+</body>
+
+</html>

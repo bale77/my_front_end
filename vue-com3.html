@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue6</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
+    <style type="text/css">
+    body {
+        padding-top: 50px;
+    }
+    </style>
+    <script type="text/javascript" src='https://unpkg.com/vue@2.2.6/dist/vue.js'></script>
+</head>
+
+<body>
+    <div id="root" class="container" >
+        <message title="Hello world" body="Lorem ipsum dolar sit amet."></message>
+        <message title="Hello Universe" body="universe bla bla bla."></message>
+        <message title="Hello Universe" body="universe bla bla bla."></message>
+    </div>
+    <script type="text/javascript">
+    Vue.component('message', {
+        template: `
+			<article class="message" v-show="isVisible">
+			  <div class="message-header">
+			    {{title}}
+			    <button type="button" @click="hideModel">x</button>
+			  </div>
+			  <div class="message-body">
+			    {{body}} 
+			  </div>
+			</article>
+		`,
+		props:['title','body'],
+        data() {
+            return {
+            	isVisible:true
+                //title: 'a',
+                //body: 'b'
+            }
+        },
+        methods:{
+        	hideModel(){
+        		this.isVisible = false;
+        	}
+        }
+    });
+
+    var vm = new Vue({
+        el: '#root'
+
+    });
+    </script>
+</body>
+
+</html>
