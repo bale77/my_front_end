@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <script src="./lib/avalon.js"></script>
+        <script>
+            avalon.define({
+                 $id: "test",
+                 text:"<b>1111</b>"
+              })
+        </script>
+    </head>
+    <body >
+ 
+<div ms-controller="test">
+    <div><em>用于测试是否被测除</em>xxxx{{text}}yyyy</div>
+    <div><em>用于测试是否被测除</em>xxxx{{text|html}}yyyy</div>
+    <div ms-text="text"><em>用于测试是否被测除</em>xxxx yyyy</div>
+    <div ms-html="text"><em>用于测试是否被测除</em>xxxx yyyy</div>
+    
+    <div>{{text}}</div>
+    <div>{{text |html}}</div>
+</div>
+ 
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ex01-2</title>
+	<script src="./lib/avalon.js"></script>
+</head>
+<body>
+       <script>
+            var vm = avalon.define({
+                $id: "test",
+                a: 1,
+                $b: 2,
+                $skipArray: ["a"],
+                c: 3,       //监控属性
+                d:{ 
+                    dd:{
+                        ddd:333
+                    },
+                    dd2:4
+                },
+                arr:[1,2,3,4],      //监控数组
+                $computed:{
+                    c:{             //计算属性
+                        get:function(){
+                            return this.a +" "+ this.c
+                        },
+                        set:function(val){
+                            var arr = val.split(" ");
+                            this.a = arr[0]
+                            this.b = arr[1]
+                        }
+                    },
+                    e:{
+                        get:function(){
+                            return this.a+100;
+                        }
+                    }
+                }
+            })
+            vm.a=20;
+        </script>
+    </head>
+    <body>
+        <div ms-controller="test">
+            <p>{{a}}</p>
+            <p>{{$b}}</p>
+            <p>{{c}}</p>
+            <p>{{d}}</p>
+            <p>{{e}}</p>
+            <br>
+            <p>{{arr}}</p>
+            <br>
+
+        </div>
+</body>
+</html>

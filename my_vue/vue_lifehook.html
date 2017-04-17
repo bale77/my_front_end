@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue入门之生命周期</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  <p>{{ number }}</p>
+		  <input type="text" name="inputNumber" v-model="number">
+		</div>
+		<pre>
+			什么时候需要到Vue.nextTick()
+
+			在 Vue 生命周期的 created() 钩子函数进行的 DOM 操作一定要放在 Vue.nextTick() 的回调函数中。原因是什么呢，原因是在 created() 钩子函数执行的时候 DOM 其实并未进行任何渲染，而此时进行 DOM 操作无异于徒劳，所以此处一定要将 DOM 操作
+		</pre>
+		<pre>
+			在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的 DOM 结构的时候，这个操作都应该放进 Vue.nextTick() 的回调函数中。
+		</pre>
+		<pre>
+			生命周期钩子的一些使用方法：
+			beforecreate : 可以在这加个loading事件，在加载实例时触发 
+			created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用
+			mounted : 挂载元素，获取到DOM节点
+			updated : 如果对数据统一处理，在这里写上相应函数
+			beforeDestroy : 可以做一个确认停止事件的确认框
+			nextTick : 更新数据后立即操作dom
+		</pre>
+	</body>
+	<script>
+      var app = new Vue({         
+        el: '#app',               
+        data: {                   
+          number: 1
+        },
+        beforeCreate: function () {
+        	debugger
+			console.log('beforeCreate',this.number)
+        },
+        created: function () {
+        	debugger
+        	setTimeout(() => {
+        		debugger
+        		this.number = 100
+        		this.$nextTick(() => {
+        			debugger
+        			console.log('nextTick', document.getElementsByTagName('p')[0]);
+          		})
+    		},3000)
+			console.log('created: ',this.number)
+        },
+        beforeMount: function () {
+        	debugger
+			console.log('beforeMount: ',this.number)
+        },
+        mounted: function () {
+        	debugger
+			console.log('mounted: ',this.number)
+        },
+        beforeUpdate: function () {
+        	debugger
+			console.log('beforeUpdate: ',this.number)
+        },
+        updated: function () {
+        	debugger
+			console.log('updated: ',this.number)
+        },
+        beforeDestroy: function () {
+        	debugger
+        },
+        destroyed: function () {
+        	debugger
+        },
+      });
+	</script>
+</html>
