@@ -7,10 +7,12 @@
         <script src="./lib/avalon.js"></script>
  
         <script>
-            var map = {
+            var map1 = {
                 "中国": ["江南四大才子", "初唐四杰", "战国四君子"],
                 "日本": ["日本武将", "日本城堡", "幕府时代"],
-                "欧美": ["三大骑士团", "三大魔幻小说", "七大奇迹"],
+                "欧美": ["三大骑士团", "三大魔幻小说", "七大奇迹"]
+            }
+            var map2 = {
                 "江南四大才子": ["祝枝山", "文征明", "唐伯虎", "周文宾"],
                 "初唐四杰": ["王勃", "杨炯", "卢照邻", "骆宾王"],
                 "战国四君子": ["楚国春申君黄歇", "齐国孟尝君田文", "赵国平原君赵胜", "魏国信陵君魏无忌"],
@@ -21,6 +23,7 @@
                 "三大魔幻小说": ["冰与火之歌", "时光之轮", "荆刺与白骨之王国"],
                 "七大奇迹": ["埃及胡夫金字塔", "奥林匹亚宙斯巨像", "阿尔忒弥斯月神殿", "摩索拉斯陵墓", "亚历山大港灯塔", "巴比伦空中花园", "罗德岛太阳神巨像"]
             }
+
             var vm = avalon.define({
                 $id: "test",
                 first: ["中国", "日本", "欧美"],
@@ -31,15 +34,15 @@
                 thirdSelected: "织田信长"
             })
  
-            vm.second = map[vm.first[1]].concat()
-            vm.third = map[vm.second[0]].concat()
+            vm.second = map1[vm.first[1]].concat()
+            vm.third = map2[vm.second[0]].concat()
  
-            vm.$watch("firstSelected", function (a) {
-                vm.second = map[a].concat()
+            vm.$watch("firstSelected", function (a) {debugger
+                vm.second = map1[a].concat();
                 vm.secondSelected = vm.second[0]
             })
             vm.$watch("secondSelected", function (a) {
-                vm.third = map[a].concat()
+                vm.third = map2[a].concat();
                 vm.thirdSelected = vm.third[0]
             })
         </script>
