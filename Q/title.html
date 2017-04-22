@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OriginTitle</title>
+</head>
+<body>
+
+    <script>
+      var OriginTitile=document.title;
+      var st;
+      document.addEventListener('visibilitychange',function(){
+      if(document.hidden){
+        document.title="(つェ⊂)我藏好了哦";
+        clearTimeout(st);
+      }else{
+        document.title='(*´∇｀*)  被你发现啦~ '+OriginTitile;
+        //console.log('show');
+        st=setTimeout(function(){
+            document.title=OriginTitile;
+        },3000);
+      }
+      });
+      </script>
+</body>
+</html>
