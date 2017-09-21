@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>my leaflet test</title>
+</head>
+
+<body>
+<div id="map"></div>
+</body>
+</html>
+
+<script src="./src/leaflet-src.js"></script>
+<script src="./src/leaflet.ChineseTmsProviders.js"></script>
+
+<script>
+
+	var map = window.map = new L.Map('map',{}).setView([35, 119], 12);
+	var norma =   L.tileLayer.chinaProvider('GaoDe.Normal.Map',{maxZoom:18,minZoom:1});
+	var imgm = L.tileLayer.chinaProvider('GaoDe.Satellite.Map',{maxZoom:18,minZoom:1});
+	var normal = new L.layerGroup([norma]);
+	var image = new L.layerGroup([imgm]);
+
+	image.addTo(map);
+</script>
