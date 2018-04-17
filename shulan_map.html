@@ -1,0 +1,59 @@
+
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Esri Leaflet Quickstart</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet-src.js"></script>
+  <script src="https://unpkg.com/proj4@2.4.4/dist/proj4-src.js"></script>
+  <script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js"></script>
+  <style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+    debugger;
+  var centerPoint = new L.LatLng(44.41098178312937, 126.93042834456247); // 设置地图中心
+  //LatLng {lat: 44.41098178312937, lng: 126.93042834456247}
+  
+  var crs = new L.Proj.CRS("EPSG:2387", "+proj=tmerc +lat_0=0 +lon_0=126 +k=1 +x_0=500000 +y_0=0 +a=6378140 +b=6356755.288157528 +units=m +no_defs",
+  {
+    origin: [-5685316.63361451, 11002166.3633464  ],  // 将刚刚的 Origin 复制到这里
+    resolutions: [                 // 所有的分辨率复制到这里
+        66.1459656252646,
+        33.0729828126323,
+        16.933367200067735,
+        8.466683600033868,
+        4.233341800016934,
+        2.116670900008467,
+        1.0583354500042335,
+        0.5291677250021167,
+        0.26458386250105836,
+        0.13229193125052918
+    ]
+  });
+  var mapOptions = {  
+    center: centerPoint,  
+    zoom: 1,  
+    crs: crs,  
+    attributionControl: true,
+  };      
+  var map = L.map('map', mapOptions);
+  var tileLayer = new L.TileLayer('http://218.27.163.238:6080/arcgis/rest/services/Lm_SLWater_DXT/MapServer/tile/{z}/{y}/{x}');
+  var tileLayer2 = new L.TileLayer('http://218.27.163.238:6080/arcgis/rest/services/Lm_SLWater_YXT/MapServer/tile/{z}/{y}/{x}');
+  
+  map.addLayer(tileLayer2); 
+  map.on("click",function(e){
+      debugger;
+      console.log(e.latlng);
+  })
+</script>
+
+</body>
+</html>   
