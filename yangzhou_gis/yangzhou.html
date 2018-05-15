@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="leaflet/leaflet.css">
+    <script src="leaflet/leaflet-src.js"></script>
+    <script src="tms/leaflet.ChineseTmsProviders.js"></script>
+
+    <script src="esri/proj4-src.js"></script>
+    <script src="esri/esri-leaflet.js"></script>
+    <script src="esri/proj4leaflet.js"></script>
+    <script src="coordtransform.js"></script>
+
+    <style>
+        body,html,#map{
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>
+
+<script>
+
+    var crs = new L.Proj.CRS("EPSG:4490", "+proj=longlat +ellps=GRS80 +no_defs ",
+        {
+            origin: [-180,90],
+            resolutions: [
+                5.364418029785158E-6,
+                2.682209014892579E-6,
+                1.3411045074462895E-6
+            ]
+        });
+    var mapOptions = {
+        center: [32.393487,119.418587],
+        zoom: 0,
+        crs: crs,
+        maxZoom:2,
+        minZoom:0,
+        attributionControl: true,
+    };
+    var map = L.map('map', mapOptions);
+    var tileLayer = new L.TileLayer('http://61.177.187.244:8012/arcgis/rest/services/yzslnew/MapServer/tile/{z}/{y}/{x}');
+    map.addLayer(tileLayer);
+    var tttileLayer = new L.TileLayer('http://61.177.187.244:8012/arcgis/rest/services/yzslzjnew/MapServer/tile/{z}/{y}/{x}');
+    map.addLayer(tttileLayer);
+
+    var tile = L.esri.tiledMapLayer({
+        url: "http://192.168.2.182:6080/arcgis/rest/services/yzzls_gw_new/MapServer",
+        maxZoom: 2,
+        minZoom: 0,
+        continuousWorld: true
+    }).addTo(map);
+</script>
