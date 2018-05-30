@@ -23,6 +23,12 @@ const User = {
   updated(){
       debugger;
       console.log('updated: '+this.$route.params.id)
+  },
+  watch: {
+    '$route' (to, from) {
+        debugger;
+      // 对路由变化作出响应...
+    }
   }
 }
 
