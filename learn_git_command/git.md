@@ -30,3 +30,5 @@ git pull 抓取远程数据并合并
 git push 将本地数据推送到远程仓库
 
 git merge 合并分支
+
+git push origin :branch-name 删除远端分支
