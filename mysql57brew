@@ -1,0 +1,104 @@
+  ~ brew install mysql@5.7
+Updating Homebrew...
+==> Installing dependencies for mysql@5.7: openssl
+==> Installing mysql@5.7 dependency: openssl
+==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2o_2.sierra.bot
+######################################################################## 100.0%
+==> Pouring openssl-1.0.2o_2.sierra.bottle.tar.gz
+==> Caveats
+A CA file has been bootstrapped using certificates from the SystemRoots
+keychain. To add additional certificates (e.g. the certificates added in
+the System keychain), place .pem files in
+  /usr/local/etc/openssl/certs
+
+and run
+  /usr/local/opt/openssl/bin/c_rehash
+
+This formula is keg-only, which means it was not symlinked into /usr/local,
+because Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries.
+
+If you need to have this software first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find this software you may need to set:
+    LDFLAGS:  -L/usr/local/opt/openssl/lib
+    CPPFLAGS: -I/usr/local/opt/openssl/include
+
+==> Summary
+🍺  /usr/local/Cellar/openssl/1.0.2o_2: 1,792 files, 12.3MB
+==> Installing mysql@5.7
+==> Downloading https://homebrew.bintray.com/bottles/mysql@5.7-5.7.23.sierra.bot
+######################################################################## 100.0%
+==> Pouring mysql@5.7-5.7.23.sierra.bottle.tar.gz
+==> /usr/local/Cellar/mysql@5.7/5.7.23/bin/mysqld --initialize-insecure --user=b
+==> Caveats
+We've installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+MySQL is configured to only allow connections from localhost by default
+
+To connect run:
+    mysql -uroot
+
+This formula is keg-only, which means it was not symlinked into /usr/local,
+because this is an alternate version of another formula.
+
+If you need to have this software first in your PATH run:
+  echo 'export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find this software you may need to set:
+    LDFLAGS:  -L/usr/local/opt/mysql@5.7/lib
+    CPPFLAGS: -I/usr/local/opt/mysql@5.7/include
+
+
+To have launchd start mysql@5.7 now and restart at login:
+  brew services start mysql@5.7
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/mysql@5.7/bin/mysql.server start
+==> Summary
+🍺  /usr/local/Cellar/mysql@5.7/5.7.23: 317 files, 234.1MB
+==> Caveats
+==> openssl
+A CA file has been bootstrapped using certificates from the SystemRoots
+keychain. To add additional certificates (e.g. the certificates added in
+the System keychain), place .pem files in
+  /usr/local/etc/openssl/certs
+
+and run
+  /usr/local/opt/openssl/bin/c_rehash
+
+This formula is keg-only, which means it was not symlinked into /usr/local,
+because Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries.
+
+If you need to have this software first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find this software you may need to set:
+    LDFLAGS:  -L/usr/local/opt/openssl/lib
+    CPPFLAGS: -I/usr/local/opt/openssl/include
+
+==> mysql@5.7
+We've installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+MySQL is configured to only allow connections from localhost by default
+
+To connect run:
+    mysql -uroot
+
+This formula is keg-only, which means it was not symlinked into /usr/local,
+because this is an alternate version of another formula.
+
+If you need to have this software first in your PATH run:
+  echo 'export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find this software you may need to set:
+    LDFLAGS:  -L/usr/local/opt/mysql@5.7/lib
+    CPPFLAGS: -I/usr/local/opt/mysql@5.7/include
+
+
+To have launchd start mysql@5.7 now and restart at login:
+  brew services start mysql@5.7
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/mysql@5.7/bin/mysql.server start
+➜  ~
