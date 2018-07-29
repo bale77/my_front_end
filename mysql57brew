@@ -10,7 +10,7 @@ A CA file has been bootstrapped using certificates from the SystemRoots
 keychain. To add additional certificates (e.g. the certificates added in
 the System keychain), place .pem files in
   /usr/local/etc/openssl/certs
-
+`
 and run
   /usr/local/opt/openssl/bin/c_rehash
 
