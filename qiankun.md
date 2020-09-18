@@ -74,15 +74,15 @@ module.exports = {
   
     [解决方法](https://github.com/umijs/qiankun/issues/578)
 
-> 产生这个问题的原因是：在子项目跳转到父项目时，子项目的卸载需要一点点的时间，在这段时间内，父项目加载了，插入了css，但是被子项目的css沙箱记录了，然后被移除了。父项目的事件监听也是一样的，所以需要在子项目卸载完成之后再跳转。
-> 
-> 临时解决办法：先复制一下HTMLHeadElement.prototype.appendChild和window.addEventListener，路由钩子函数beforeEach中判断一下，如果当前路由是子项目，并且去的路由是父项目的，则还原这两个对象.
+    > 产生这个问题的原因是：在子项目跳转到父项目时，子项目的卸载需要一点点的时间，在这段时间内，父项目加载了，插入了css，但是被子项目的css沙箱记录了，然后被移除了。父项目的事件监听也是一样的，所以需要在子项目卸载完成之后再跳转。
+    > 
+    > 临时解决办法：先复制一下HTMLHeadElement.prototype.appendChild和window.addEventListener，路由钩子函数beforeEach中判断一下，如果当前路由是子项目，并且去的路由是父项目的，则还原这两个对象.
 
-   
+      
 
 4. 子应用图片未能正确加载
   
-  解决方法：需要配置好webpack output publicPath
+    解决方法：需要配置好webpack output publicPath
 
 5. 微应用在setGlobeState时，如：
   props.setGlobalState(
@@ -154,7 +154,9 @@ module.exports = {
 
 ## 如何新增一个微应用
 
-1. 配置文件
+1. [参考上述](#实战注意事项)配置好微应用的入口文件mian.js，配置好微应用的webpack配置文件。
+   
+2. 主应用配置文件
    
     在config.js文件中配置MICRO_APP_ARR数组
     ```javscript
@@ -182,11 +184,11 @@ module.exports = {
       ]
     ```
 
-2. 涉及到测试环境、沙箱环境、生成环境不同的url，可以在.env中配置（参考VUE_APP_WJY_URL）。
+3. 涉及到测试环境、沙箱环境、生成环境不同的url，可以在.env中配置（参考VUE_APP_WJY_URL）。
   
     如微应用的开发地址可以配置在.env.development中,微应用的生产地址可以配置在.env.build中。
 
-3. 涉及到父子应用需共享状态的字段，在micro-app.js文件中做好初始化。如
+4. 涉及到父子应用需共享状态的字段，在micro-app.js文件中做好初始化。如
 
     ```javascript
       const actions = initGlobalState(
@@ -196,3 +198,5 @@ module.exports = {
         }
       )
     ```
+
+---
