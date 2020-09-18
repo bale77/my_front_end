@@ -94,9 +94,9 @@ module.exports = {
   若GlobeState不存在foo，那么不会触发onGlobalStateChange的监听事件。
 
 6. qiankun微前端暂无官方文档前端缓存方案
-  参考这位大神的[解决方法](https://github.com/umijs/qiankun/issues/361#issuecomment-644024542)，可以实现vue项目缓存。但暂无react项目缓存案例。
+  参考这位大神的[解决方法](https://github.com/umijs/qiankun/issues/361#issuecomment-644024542)，可以实现vue项目缓存。***但暂无react项目缓存案例。***
 
-7. 微应用点击事件没有触发。原因：z-index层级不够，没有点到那个dom上。作如下修改：
+7. 微应用点击事件没有触发。排查原因：父子应用DOM重叠，微应用DOM z-index层级不够，没有点到那个dom上。作如下修改：（思路是当显示子应用时，隐藏主应用的dom）
 
     7.1 App.vue
     ```html
@@ -113,7 +113,6 @@ module.exports = {
         $route: {
           immediate: true,
           handler (val) {
-            console.log('in main dashboard')
             const childRoute = [...MICRO_APP_ARR.map(i => i.url)]
             if (childRoute.some(i => i.startsWith(val.fullPath))) {
               this.isShowRoute = false
@@ -121,24 +120,16 @@ module.exports = {
               this.isShowRoute = true
             }
 
-            this.currentPathName = val.name
-            // 监听是否进入了块数据专题
-            const name = this.$route.name
-            this.routeName = name
-            if (HIDDEN_CONTAINER_PADDING.includes(name)) {
-              this.isShow = false
-            } else {
-              this.isShow = true
-            }
+            // ... 业务逻辑
           }
 
         }
       }
     ```
 
-8. 微应用axios的baseUrl不能写死
+8. 微应用axios的baseUrl不能写死，否则微应用接口会调用到window.location.origin去。
 
-    例如可以写到项目环境变量中 
+    解决方法：例如可以配置到项目环境变量中 
     ```
     VUE_APP_BASE_URL = http://http://10.22.233.180/
     ```
@@ -161,11 +152,47 @@ module.exports = {
 
 ---
 
-## TODO
+## 如何新增一个微应用
 
- 1. 复用公共依赖
- 2. 父子项目间的组件共享
+1. 配置文件
+   
+    在config.js文件中配置MICRO_APP_ARR数组
+    ```javscript
+    const MICRO_APP_ARR = [
+      {
+        url: '/weijiayuanDatav',
+        meta: '微家园',
+        entry: process.env.VUE_APP_WJY_URL.slice(5, -3)
+      }
+    ]
+    ```
+
+    在micro-app.js文件中配置apps数组
+    ```javascript
+      const apps = [
+        {
+          name: 'weijiayuanDatav',
+          entry: MICRO_APP_ARR[0].entry,
+          container: '#microApp0',
+          activeRule: '#' + MICRO_APP_ARR[0].url,
+          props: {
+            isWeijiayuanDatavVerifyOk: false
+          }
+        }
+      ]
+    ```
+
+2. 涉及到测试环境、沙箱环境、生成环境不同的url，可以在.env中配置（参考VUE_APP_WJY_URL）。
   
-  ...eg
+    如微应用的开发地址可以配置在.env.development中,微应用的生产地址可以配置在.env.build中。
 
-  后期结合项目实践情况进行使用。
+3. 涉及到父子应用需共享状态的字段，在micro-app.js文件中做好初始化。如
+
+    ```javascript
+      const actions = initGlobalState(
+        {
+          isWeijiayuanDatavVerifyOk: false, // 共治服务敏感信息验证
+          wjyToDetail: '' // 微家园大屏跳转事件详情字段，默认为空 ''
+        }
+      )
+    ```
