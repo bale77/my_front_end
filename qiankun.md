@@ -1,3 +1,6 @@
+## 需求背景
+随着项目的迭代与新需求层出不穷，现有社会治理前端越来越繁杂，开发维护代码的成本越来越高。后期会有更多的新项目立项开发，有些项目既要能独立运行，又要求能作为子应用（社会治理的一个模块）运行。那么，**微前端**就来了。
+
 ## 介绍
 qiankun 是一个基于 [single-spa](https://github.com/single-spa/single-spa) 的[微前端](https://micro-frontends.org/)实现库，旨在帮助大家能更简单、无痛的构建一个生产可用微前端架构系统。
 
@@ -67,10 +70,102 @@ module.exports = {
    两个子应用同时存在, 又添加了两个全局变量 window.a, 如何保证这两个能同时运行但互不干扰？
    采用了 proxy 代理之后，所有子应用的全局变量变更都是在闭包中产生的，不会真正回写到 window 上，这样就能避免多实例之间的污染了。
 
+3. 先访问子应用，再访问主应用，主应用样式会乱的问题
+  
+    [解决方法](https://github.com/umijs/qiankun/issues/578)
+
+> 产生这个问题的原因是：在子项目跳转到父项目时，子项目的卸载需要一点点的时间，在这段时间内，父项目加载了，插入了css，但是被子项目的css沙箱记录了，然后被移除了。父项目的事件监听也是一样的，所以需要在子项目卸载完成之后再跳转。
+> 
+> 临时解决办法：先复制一下HTMLHeadElement.prototype.appendChild和window.addEventListener，路由钩子函数beforeEach中判断一下，如果当前路由是子项目，并且去的路由是父项目的，则还原这两个对象.
+
+   
+
+4. 子应用图片未能正确加载
+  
+  解决方法：需要配置好webpack output publicPath
+
+5. 微应用在setGlobeState时，如：
+  props.setGlobalState(
+    {
+      foo:'vue micro application'
+    }
+  )
+  foo一定要是已经在state的属性里已存在的
+  若GlobeState不存在foo，那么不会触发onGlobalStateChange的监听事件。
+
+6. qiankun微前端暂无官方文档前端缓存方案
+  参考这位大神的[解决方法](https://github.com/umijs/qiankun/issues/361#issuecomment-644024542)，可以实现vue项目缓存。但暂无react项目缓存案例。
+
+7. 微应用点击事件没有触发。原因：z-index层级不够，没有点到那个dom上。作如下修改：
+
+    7.1 App.vue
+    ```html
+    <div id="microApp0" v-show='true' :style='{left:isShowMicroApp0?0:"-1920px",top:outContainerTop+"px",height:(windowInnerHeight-outContainerTop)+"px"}'>
+
+    </div>
+    <div id="microApp1" v-show='$route.fullPath.startsWith("/appreact")' :style='{top:outContainerTop+"px",height:(windowInnerHeight-outContainerTop)+"px"}'>
+
+    </div>
+    ```
+    7.2 Dashboard/index.vue
+    ```javascript
+      watch: {
+        $route: {
+          immediate: true,
+          handler (val) {
+            console.log('in main dashboard')
+            const childRoute = [...MICRO_APP_ARR.map(i => i.url)]
+            if (childRoute.some(i => i.startsWith(val.fullPath))) {
+              this.isShowRoute = false
+            } else {
+              this.isShowRoute = true
+            }
+
+            this.currentPathName = val.name
+            // 监听是否进入了块数据专题
+            const name = this.$route.name
+            this.routeName = name
+            if (HIDDEN_CONTAINER_PADDING.includes(name)) {
+              this.isShow = false
+            } else {
+              this.isShow = true
+            }
+          }
+
+        }
+      }
+    ```
+
+8. 微应用axios的baseUrl不能写死
+
+    例如可以写到项目环境变量中 
+    ```
+    VUE_APP_BASE_URL = http://http://10.22.233.180/
+    ```
+
+9. 如果使用沙箱模式，那么微应用的DOM为shasowDom，代码中不能使用BOM、DOM对象(window,document)，另外微应用中使用到的插件（如ElementUI\echarts等）可能会用到document.querySelector，同样也会报错。
+
+    比如，shadow-dom 中的页面使用 element-ui 中的 tooltip 和 popover 会有(问题)[https://github.com/umijs/qiankun/issues/481]
+
+    分析了一下ElementUI的源码，主要问题是popper.js文件中用到了这么几行代码
+    ```javascript
+    function getStyleComputedProperty(element, property) {
+        // NOTE: 1 DOM access here
+        var css = root.getComputedStyle(element, null);
+        return css[property];
+    }
+    ```
+    这里的root就是window对象，当点击时间选择框，显示弹框时，变量element正常来说只会是DOM对象，但这里的element会是shadowDOM，而shadowDOM是没有getComputedStyle原生方法的，从而导致报错。我尝试重写getComputedStyle方法，无效。
+
+    因此建议：sandbox要设置成false
+
+---
 
 ## TODO
 
  1. 复用公共依赖
  2. 父子项目间的组件共享
-...eg
-后期结合项目实践情况进行使用。
+  
+  ...eg
+
+  后期结合项目实践情况进行使用。
