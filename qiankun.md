@@ -150,15 +150,17 @@ module.exports = {
 
     因此建议：sandbox要设置成false
 
+    但随之而来的问题是，存在css污染的情况，鱼和熊掌不可兼得。
+
 ---
 
 ## 如何新增一个微应用
 
-1. [参考上述](#实战注意事项)配置好微应用的入口文件mian.js，配置好微应用的webpack配置文件。
+1. [参考上述](#实战注意事项)，配置好微应用的入口文件mian.js及webpack配置文件。
    
 2. 主应用配置文件
    
-    在config.js文件中配置MICRO_APP_ARR数组
+    在config.js文件中配置MICRO_APP_ARR数组（注意数组顺序）
     ```javscript
     const MICRO_APP_ARR = [
       {
@@ -200,3 +202,68 @@ module.exports = {
     ```
 
 ---
+
+## 最后提测遇到的问题
+
+开发环境development在本地测试完成之后，打包上线，原以为会很顺利。没想到npm run build之后还会有大坑。（开发环境正常，生产环境有问题）
+
+### 坑1： 
+
+主应用部署地址为192.168.1.1/foo/#/index
+
+微应用部署地址为192.168.1.1/bar/#/bar
+
+在主应用中注册微应用地址为192.168.1.1/foo/#/bar
+
+在浏览器中输入192.168.1.1/foo/#/bar回车之后，直接跳转192.168.1.1/#/ 显示白屏了
+
+why?
+
+花了大半天时间排查问题考虑了前端vue-router跳转？nginx跳转？在本地开启nginx服务排查了很多种情况，最后竟然发现跟qiankun的配置文件有关
+
+```javascript
+  const apps = [
+    {
+      name: 'weijiayuanDatav',
+      entry: MICRO_APP_ARR[0].entry,
+      container: '#microApp0',
+      // 写法1
+      // activeRule: '#/weijiayuanDatav',
+      // 写法2
+      // activeRule: ['#' + MICRO_APP_ARR[0].url],
+      // 写法3
+      // activeRule: location.hash.startsWith('#' + MICRO_APP_ARR[0].url),
+      // 写法4
+      activeRule: location => {
+        return location.hash.startsWith('#' + MICRO_APP_ARR[0].url)
+      },
+      props: {
+        isWeijiayuanDatavVerifyOk: false
+      }
+    }
+  ]
+```
+
+qiankun注册微应用的方法为registerMicroApps，这个方法接收的第一个参数就是数组apps，[坑1](###坑1)的问题就是跟activeRule这个字段有关，根据qiankun官方文档，这个字段可以是string\function\array
+
+但是，
+
+当用写法1、4的时候，会产生上述的跳转白屏的问题
+
+当用写法3的时候，不会有上述白屏问题，但浏览器控制台会有个single-spa的报错，code=24，查了下
+
+> #24: The activityFunction argument must be a function
+
+**这样是导致两个相斥的bug不能同时解决！！！**
+
+然后又排查了很久，最后的解决方案是采用写法4，然后在主应用中去掉setDefaultMountApp('/')这一行代码
+
+就是**不用设置默认绑定的微应用**
+
+### 坑2：
+
+微应用的图片、字体路径不正确
+
+GitHub Issue上有[解决方案](https://github.com/umijs/qiankun/issues/217#issuecomment-616283390)
+
+产生bug的原因是插件import-html-entry库不兼容微应用。
