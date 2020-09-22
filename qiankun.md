@@ -254,7 +254,7 @@ qiankun注册微应用的方法为registerMicroApps，这个方法接收的第�
 
 > #24: The activityFunction argument must be a function
 
-**这样是导致两个相斥的bug不能同时解决！！！**
+**这样，导致两个相斥的bug不能同时解决！！！**
 
 然后又排查了很久，最后的解决方案是采用写法4，然后在主应用中去掉setDefaultMountApp('/')这一行代码
 
