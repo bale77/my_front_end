@@ -275,7 +275,7 @@ GitHub Issue上有[解决方案](https://github.com/umijs/qiankun/issues/217#iss
 表现：微应用打不开，一片空白。控制台报错 
 
 ```
-Only one instance of babel-polyfill is allowed
+Uncaugh Error: only one instance of babel-polyfill is allowed
 ```
 
 修复方法：去掉微应用package.json中的babel-polyfill。重装依赖包
