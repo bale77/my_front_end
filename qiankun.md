@@ -267,3 +267,15 @@ qiankun注册微应用的方法为registerMicroApps，这个方法接收的第�
 GitHub Issue上有[解决方案](https://github.com/umijs/qiankun/issues/217#issuecomment-616283390)
 
 产生bug的原因是插件import-html-entry库不兼容微应用。
+
+### 坑3：
+
+这个坑是后续（上线之后一段时间）发现的
+
+表现：微应用打不开，一片空白。控制台报错 
+
+```
+Only one instance of babel-polyfill is allowed
+```
+
+修复方法：去掉微应用package.json中的babel-polyfill。重装依赖包
